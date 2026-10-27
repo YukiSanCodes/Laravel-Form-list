@@ -2,13 +2,16 @@ FROM composer:2 AS dependencies
 
 WORKDIR /app
 
-COPY composer.json composer.lock ./
+COPY . .
 
 RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
 FROM php:8.5-apache
 
-RUN docker-php-ext-install pdo_sqlite \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libsqlite3-dev \
+    && rm -rf /var/lib/apt/lists/* \
+    && docker-php-ext-install pdo_sqlite \
     && a2enmod rewrite
 
 WORKDIR /var/www/html
