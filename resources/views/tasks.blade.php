@@ -80,7 +80,7 @@
     <p>{{ session('success') }}</p>
   @endif
 
-  <form action="{{ route('tasks.store') }}" method="POST">
+  <form action="{{ route('tasks.store', [], false) }}" method="POST">
     @csrf
 
     <label for="task_title">Task title:</label><br>
