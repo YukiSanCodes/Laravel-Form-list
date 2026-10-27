@@ -24,4 +24,4 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 
 EXPOSE 80
 
-CMD ["/bin/bash", "-c", "touch database/database.sqlite && php artisan migrate --force && apache2-foreground"]
+CMD ["/bin/bash", "-c", "touch database/database.sqlite && php artisan migrate --force && chown -R www-data:www-data database storage bootstrap/cache && exec apache2-foreground"]
